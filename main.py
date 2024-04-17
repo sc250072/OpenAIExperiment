@@ -1,35 +1,49 @@
 import logging
 import os
-
 from dotenv import load_dotenv
+from slack_bolt import App
+from slack_bolt.adapter.socket_mode import SocketModeHandler
 
 from com.teradata.openai.apihandler.APIHandler import Environment
 from com.teradata.openai.apihandler.AzureOpenAIHandler import AzureOpenAIHandler
 from com.teradata.openai.teradataapi.teradata_api import TeradataApi
 from com.teradata.openai.util.Logging import Logging
 
+load_dotenv()
 
-def validate():
-    key = os.getenv("AZURE_OPENAI_API_KEY")
-    user_query = os.getenv("USER_QUERY")
-    azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
-    if key is None or user_query is None or azure_endpoint is None:
-        raise Exception("Please provide Azure OpenAI API key, end point and user question")
+SLACK_APP_TOKEN = os.environ["SLACK_APP_TOKEN"]
+SLACK_BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
+app = App(token=SLACK_BOT_TOKEN, name="Slack Bot")
+key = os.getenv("AZURE_OPENAI_API_KEY")
+db_name = os.getenv("TERADATA_USER")
+azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+azure_model_name = os.getenv("AZURE_OPENAI_MODEL")
 
 
 class Main(Logging):
 
-    def __init__(self):
-        pass
+    @app.event("message")
+    def promt_for_sql(message, say):
+        dm_channel = message["channel"]
+        user_id = message["user"]
+        user_query = message["text"]
+        logging.info(f"Sent request < {user_query} ")
+        main = Main()
+        response = main.executeQ(user_query)  #add logic
+        for row in response:
+            logging.info("Response type is " + str(type(row)))
+            list_string = ' '.join(str(e) for e in row)
+            print(list_string)
+            logging.info(f"Sent response < {list_string} > to user {user_id}")
+            say(text=list_string, channel=dm_channel)
 
-    def main(self):
-        load_dotenv()
-        key = os.getenv("AZURE_OPENAI_API_KEY")
-        user_query = os.getenv("USER_QUERY")
-        db_name = os.getenv("TERADATA_USER")
-        azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
-        azure_model_name = os.getenv("AZURE_OPENAI_MODEL")
-        validate()
+    def validate(self, user_query):
+        if key is None or user_query is None or azure_endpoint is None:
+            raise Exception("Please provide Azure OpenAI API key, end point and user question")
+
+    def executeQ(self, user_query):
+        mainObj = Main()
+        mainObj.validate(user_query)
         tapi = TeradataApi()
         env = Environment(key, azure_endpoint, azure_model_name)
         if db_name is not None:
@@ -46,6 +60,7 @@ class Main(Logging):
                             for row in rows:
                                 self.log.info(row)
                                 print(row)
+                            return rows
                         else:
                             self.log.info("No data exists")
                             print("No data exists")
@@ -57,6 +72,10 @@ class Main(Logging):
             raise Exception("Please provider a valid username")
 
 
+def main():
+    handler = SocketModeHandler(app, SLACK_APP_TOKEN)
+    handler.start()
+
+
 if __name__ == "__main__":
-    main = Main()
-    main.main()
+    main()

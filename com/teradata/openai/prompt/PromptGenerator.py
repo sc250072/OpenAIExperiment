@@ -1,3 +1,5 @@
+import logging
+
 from com.teradata.openai.teradataapi.teradata_api import TeradataApi
 from com.teradata.openai.util import Constants
 from com.teradata.openai.util.Logging import Logging
@@ -33,7 +35,7 @@ class PromptGenerator(Logging):
                     rows = cur.fetchall()
                     table_def = "".join([str(col).replace("\r", "\n") for col in rows[0]])
                     query = query + "\n" + table_def
-            print(query)
+            logging.info(query)
         except Exception as ex:
             self.log.error(str(ex))
             print(str(ex))

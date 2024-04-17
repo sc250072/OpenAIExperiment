@@ -17,3 +17,7 @@ Here are the steps for executing the project:
       6. AZURE_OPENAI_ENDPOINT=azureendpointurl
       7. AZURE_OPENAI_API_KEY=azurere openai key
       8. AZURE_OPENAI_MODEL=modelname to use
+ 
+ 4. Set up slack bot configurations
+	1. SLACK_APP_TOKEN=xapp-111111
+	2. SLACK_BOT_TOKEN=xoxb-999999
