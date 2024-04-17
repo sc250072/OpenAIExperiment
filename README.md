@@ -8,8 +8,8 @@ The model generates SQL query statements, which are subsequently submitted to Te
 Here are the steps for executing the project:
 
    1. Clone the project using the command "git clone".
-   2. Open the project in PyCharm.
-   3. Set up the Run Configurations for "main.py" by adding the following environment variables or define .env at project level  to specify the Teradata instance details and OpenAI API key.
+   2. cd tera_crystalball
+   3. create .evn file with below environment variables and modify values with relavent information.
       1. TERADATA_HOST=whomooz;
       2. TERADATA_USER=guest;
       3. TERADATA_PASSWORD=please;
