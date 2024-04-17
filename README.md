@@ -17,3 +17,5 @@ Here are the steps for executing the project:
       6. AZURE_OPENAI_ENDPOINT=azureendpointurl
       7. AZURE_OPENAI_API_KEY=azurere openai key
       8. AZURE_OPENAI_MODEL=modelname to use
+   9. Run pip install -r requirements_dev.txt
+   10. Run python main.py
