@@ -70,7 +70,7 @@ class Main(Logging):
                 except Exception as ex:
                     self.log.error(str(ex))
             else:
-                raise Exception("OpenAI API failed to return SQL query for specified query : %s ", user_query)
+                self.log.error("OpenAI API failed to return SQL query for specified query : %s ", user_query)
         else:
             raise Exception("Please provider a valid username")
 
