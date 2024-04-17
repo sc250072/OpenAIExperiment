@@ -1,2 +1,6 @@
 poc.log
 .env
+
+.idea/
+
+tera_crystal_ball.egg-info/

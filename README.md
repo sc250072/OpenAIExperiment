@@ -13,12 +13,12 @@ Here are the steps for executing the project:
       1. TERADATA_HOST=whomooz;
       2. TERADATA_USER=guest;
       3. TERADATA_PASSWORD=please;
-      5. USER_QUERY=query.
-      6. AZURE_OPENAI_ENDPOINT=azureendpointurl
-      7. AZURE_OPENAI_API_KEY=azurere openai key
-      8. AZURE_OPENAI_MODEL=modelname to use
-      9. Run pip install -r requirements_dev.txt
-     10. Run python main.py
+      4. USER_QUERY=query.
+      5. AZURE_OPENAI_ENDPOINT=azureendpointurl
+      6. AZURE_OPENAI_API_KEY=azurere openai key
+      7. AZURE_OPENAI_MODEL=modelname to use
+      8. Run pip install -r requirements_dev.txt
+      9. Run python main.py
  
  4. Set up slack bot configurations
 	1. SLACK_APP_TOKEN=xapp-111111
