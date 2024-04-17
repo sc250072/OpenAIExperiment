@@ -4,3 +4,9 @@ poc.log
 .idea/
 
 tera_crystal_ball.egg-info/
+
+com/teradata/openai/
+
+com/__pycache__/
+
+com/teradata/__pycache__/

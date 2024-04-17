@@ -14,7 +14,9 @@ setup(
         'python-dotenv',
         'openai',
         'teradatasql>=16.20.0.0',
-        'pytest~=7.0'
+        'pytest~=7.0',
+        'slack-bolt==1.9.1',
+        'slack-sdk==3.10.1'
     ],
     python_requires=">=3.8,<3.12",
 )

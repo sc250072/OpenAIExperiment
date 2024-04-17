@@ -30,12 +30,15 @@ class Main(Logging):
         logging.info(f"Sent request < {user_query} ")
         main = Main()
         response = main.executeQ(user_query)  #add logic
-        for row in response:
-            logging.info("Response type is " + str(type(row)))
-            list_string = ' '.join(str(e) for e in row)
-            print(list_string)
-            logging.info(f"Sent response < {list_string} > to user {user_id}")
-            say(text=list_string, channel=dm_channel)
+        if response is not None and len(response) > 0:
+            for row in response:
+                logging.info("Response type is " + str(type(row)))
+                list_string = ' '.join(str(e) for e in row)
+                print(list_string)
+                logging.info(f"Sent response < {list_string} > to user {user_id}")
+                say(text=list_string, channel=dm_channel)
+        else:
+            say(text='No response found for given question', channel=dm_channel)
 
     def validate(self, user_query):
         if key is None or user_query is None or azure_endpoint is None:
