@@ -1,9 +1,7 @@
-import json
 import logging
 import os
-import requests
+
 from dotenv import load_dotenv
-from openai.lib.azure import AzureOpenAI
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 

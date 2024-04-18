@@ -1,6 +1,5 @@
-import os
-import re
 import logging
+import re
 
 from openai.lib.azure import AzureOpenAI
 
