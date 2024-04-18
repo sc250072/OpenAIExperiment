@@ -1,6 +1,9 @@
+import json
 import logging
 import os
+import requests
 from dotenv import load_dotenv
+from openai.lib.azure import AzureOpenAI
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 
@@ -29,14 +32,9 @@ class Main(Logging):
         user_query = message["text"]
         logging.info(f"Sent request < {user_query} ")
         main = Main()
-        response = main.executeQ(user_query)  #add logic
+        response = main.executeQ(user_query)  # add logic
         if response is not None and len(response) > 0:
-            for row in response:
-                logging.info("Response type is " + str(type(row)))
-                list_string = ' '.join(str(e) for e in row)
-                print(list_string)
-                logging.info(f"Sent response < {list_string} > to user {user_id}")
-                say(text=list_string, channel=dm_channel)
+            say(text=response, channel=dm_channel)
         else:
             say(text='No response found for given question', channel=dm_channel)
 
@@ -60,10 +58,7 @@ class Main(Logging):
                         cur.execute(query)
                         rows = cur.fetchall()
                         if len(rows) > 0:
-                            for row in rows:
-                                self.log.info(row)
-                                print(row)
-                            return rows
+                            return api.get_final_msg(rows, user_query)
                         else:
                             self.log.info("No data exists")
                             print("No data exists")
