@@ -5,8 +5,16 @@ poc.log
 
 tera_crystal_ball.egg-info/
 
-com/teradata/openai/
-
 com/__pycache__/
 
 com/teradata/__pycache__/
+
+com/teradata/openai/__pycache__/
+
+com/teradata/openai/util/__pycache__/
+
+com/teradata/openai/apihandler/__pycache__/
+
+com/teradata/openai/teradataapi/__pycache__/
+
+com/teradata/openai/prompt/__pycache__/
