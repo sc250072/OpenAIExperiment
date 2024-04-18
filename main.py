@@ -32,7 +32,14 @@ class Main(Logging):
         main = Main()
         response = main.executeQ(user_query)  # add logic
         if response is not None and len(response) > 0:
-            say(text=response, channel=dm_channel)
+            list_string = ''
+            for row in response:
+                if row is not None:
+                    logging.info("Response type is " + str(type(row)))
+                    list_string = list_string + (str(row))+"\n"
+                    print(list_string)
+                    logging.info(f"Sent response < {list_string} > to user {user_id}")
+            say(text=list_string, channel=dm_channel)
         else:
             say(text='No response found for given question', channel=dm_channel)
 
@@ -56,7 +63,10 @@ class Main(Logging):
                         cur.execute(query)
                         rows = cur.fetchall()
                         if len(rows) > 0:
-                            return api.get_final_msg(rows, user_query)
+                            for row in rows:
+                                self.log.info(row)
+                                print(row)
+                            return rows
                         else:
                             self.log.info("No data exists")
                             print("No data exists")
