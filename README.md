@@ -1,4 +1,4 @@
-# Teradata Crystal Ball
+# OpenAI - Experiment
 This project aims to create SQL queries from natural language. 
 This sample proof of concept (POC) is centered around tables that exist in the database of the logged-in user within the provided instance. 
 It employs the OpenAI gpt-3.5-turbo language model to generate SQL queries based on human input. 
